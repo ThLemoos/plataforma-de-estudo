@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM SP 2026 — Plano de Estudos</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="app">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">PM SP 2026</div>
+                <div class="sidebar-title">Plano de Estudos</div>
+                <div class="sidebar-sub">Oficial PM · Vunesp · 16/08/2026</div>
+            </div>
+            <div class="sidebar-progress">
+                <div class="prog-label"><span>Progresso geral</span><span id="pct-sidebar">0%</span></div>
+                <div class="prog-track">
+                    <div class="prog-fill" id="prog-sidebar" style="width:0%"></div>
+                </div>
+                <div class="dias-restantes" id="dias-restantes">— dias para a prova</div>
+            </div>
+            <nav class="nav">
+                <div class="nav-section">Painel</div>
+                <div class="nav-item active" data-panel="dashboard">
+                    <span class="nav-icon">📊</span> Dashboard
+                </div>
+                <div class="nav-item" data-panel="rotina">
+                    <span class="nav-icon">⏰</span> Rotina Diária
+                </div>
+                <div class="nav-section">Cronograma</div>
+                <div class="nav-item" data-panel="junho">
+                    <span class="nav-icon">📅</span> Junho
+                    <span class="nav-badge" id="nb-junho">0%</span>
+                </div>
+                <div class="nav-item" data-panel="julho">
+                    <span class="nav-icon">📅</span> Julho
+                    <span class="nav-badge" id="nb-julho">0%</span>
+                </div>
+                <div class="nav-item" data-panel="agosto">
+                    <span class="nav-icon">📅</span> Agosto
+                    <span class="nav-badge" id="nb-agosto">0%</span>
+                </div>
+                <div class="nav-section">Matérias</div>
+                <div class="nav-item" data-panel="matematica">
+                    <span class="nav-icon">🔢</span> Matemática
+                    <span class="nav-badge" id="nb-mat">12q</span>
+                </div>
+                <div class="nav-item" data-panel="portugues">
+                    <span class="nav-icon">📖</span> Português
+                    <span class="nav-badge" id="nb-port">18q</span>
+                </div>
+                <div class="nav-item" data-panel="exatas">
+                    <span class="nav-icon">⚛️</span> Física/Quím/Bio
+                    <span class="nav-badge">18q</span>
+                </div>
+                <div class="nav-item" data-panel="humanas">
+                    <span class="nav-icon">🌍</span> Humanas
+                    <span class="nav-badge">20q</span>
+                </div>
+                <div class="nav-section">Outros</div>
+                <div class="nav-item" data-panel="redacao">
+                    <span class="nav-icon">✍️</span> Redação
+                </div>
+                <div class="nav-item" data-panel="taf">
+                    <span class="nav-icon">🏃</span> TAF
+                </div>
+            </nav>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <!-- DASHBOARD -->
+            <div id="panel-dashboard" class="panel active">
+                <div class="page-header">
+                    <div class="page-tag">Painel principal</div>
+                    <div class="page-title">Sua preparação, PM SP 2026</div>
+                    <div class="page-sub">Clique em cada dia para marcar como concluído.</div>
+                </div>
+
+                <div class="prova-card">
+                    <div class="prova-emoji">🎯</div>
+                    <div class="prova-info">
+                        <h2>Prova Objetiva + Dissertativa</h2>
+                        <p>16 de agosto de 2026 · 80 questões · Banca Vunesp · Mínimo 40 pontos para aprovação</p>
+                    </div>
+                </div>
+
+                <div class="countdown">
+                    <div>
+                        <div class="countdown-days" id="cd-days">—</div>
+                        <div class="countdown-label">dias restantes</div>
+                        <div class="countdown-date">Prova: 16/08/2026</div>
+                    </div>
+                    <div style="flex:1">
+                        <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Tempo decorrido desde o início
+                            (01/06)</div>
+                        <div class="countdown-bar">
+                            <div class="countdown-fill" id="cd-fill" style="width:0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-card blue">
+                        <div class="stat-n blue" id="s-total">0</div>
+                        <div class="stat-l">dias concluídos</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-n green" id="s-pct">0%</div>
+                        <div class="stat-l">do plano feito</div>
+                    </div>
+                    <div class="stat-card amber">
+                        <div class="stat-n amber" id="s-redacoes">0</div>
+                        <div class="stat-l">redações escritas</div>
+                    </div>
+                    <div class="stat-card purple">
+                        <div class="stat-n purple">76</div>
+                        <div class="stat-l">dias totais de plano</div>
+                    </div>
+                </div>
+
+                <div class="section-title">Progresso por matéria</div>
+                <div class="materias-grid" id="materias-prog"></div>
+
+                <div class="section-title">Resumo da prova</div>
+                <div class="materias-grid">
+                    <div class="materia-card">
+                        <div style="font-size:13px;font-weight:600;margin-bottom:10px">Distribuição de questões</div>
+                        <div id="dist-questoes"></div>
+                    </div>
+                    <div class="materia-card">
+                        <div style="font-size:13px;font-weight:600;margin-bottom:10px">Etapas do concurso</div>
+                        <div style="font-size:12px;color:var(--muted);line-height:2">
+                            ① Prova objetiva (80 questões)<br>
+                            ② Prova dissertativa (redação 30 linhas)<br>
+                            ③ TAF (barra, abdominal, 50m, Cooper)<br>
+                            ④ Exame de saúde<br>
+                            ⑤ Avaliação psicológica<br>
+                            ⑥ Investigação social
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROTINA -->
+            <div id="panel-rotina" class="panel">
+                <div class="page-header">
+                    <div class="page-tag">Organização</div>
+                    <div class="page-title">Rotina diária</div>
+                    <div class="page-sub">Adaptada para quem trabalha das 6h às 13h/14h</div>
+                </div>
+                <div class="semana">
+                    <div class="semana-head" onclick="toggleSemana('r1')">
+                        <div class="semana-left">
+                            <div class="semana-icon" style="background:rgba(59,130,246,.1)">⏰</div>
+                            <div>
+                                <div class="semana-titulo">Segunda a sexta (4h30 de estudo)</div>
+                                <div class="semana-sub">Após o trabalho — 14h30 em diante</div>
+                            </div>
+                        </div>
+                        <div class="semana-right"><span class="badge badge-info">diário</span><span class="chevron"
+                                id="chev-r1">▼</span></div>
+                    </div>
+                    <div class="semana-body open" id="body-r1">
+                        <table class="rotina-table">
+                            <thead>
+                                <tr>
+                                    <th>Horário</th>
+                                    <th>Atividade</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">14h00–14h30
+                                    </td>
+                                    <td>Almoço e descanso rápido</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">14h30–16h30
+                                    </td>
+                                    <td>Matemática, Física, Química ou Biologia</td>
+                                    <td><span class="tipo-pill tp-ex">Exatas</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">16h30–17h30
+                                    </td>
+                                    <td>Academia / treino físico</td>
+                                    <td><span class="tipo-pill tp-tf">TAF</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">18h00–20h00
+                                    </td>
+                                    <td>Português, História, Geografia, Filosofia ou Sociologia</td>
+                                    <td><span class="tipo-pill tp-hm">Humanas/Port.</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">20h00–20h30
+                                    </td>
+                                    <td>Revisão rápida do dia — resumo e flashcards</td>
+                                    <td><span class="tipo-pill tp-rv">Revisão</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="dica" style="margin-top:12px">
+                            <div class="dica-titulo">💡 Regra de ouro</div>
+                            <p>Exatas primeiro (mente descansada para raciocínio), humanas/português depois. Nunca pule
+                                a revisão de 30min — ela consolida o conteúdo.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="semana">
+                    <div class="semana-head" onclick="toggleSemana('r2')">
+                        <div class="semana-left">
+                            <div class="semana-icon" style="background:rgba(16,185,129,.1)">📝</div>
+                            <div>
+                                <div class="semana-titulo">Sábado (dia especial — 5h)</div>
+                                <div class="semana-sub">Redação + simulado + análise</div>
+                            </div>
+                        </div>
+                        <div class="semana-right"><span class="badge badge-ok">semanal</span><span class="chevron"
+                                id="chev-r2">▼</span></div>
+                    </div>
+                    <div class="semana-body" id="body-r2">
+                        <table class="rotina-table">
+                            <thead>
+                                <tr>
+                                    <th>Horário</th>
+                                    <th>Atividade</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">08h00–09h30
+                                    </td>
+                                    <td>Redação completa — 30 linhas cronometrada</td>
+                                    <td><span class="tipo-pill tp-rd">Redação</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">10h00–12h00
+                                    </td>
+                                    <td>Simulado de questões (20 questões variadas)</td>
+                                    <td><span class="tipo-pill tp-rv">Simulado</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">14h00–16h00
+                                    </td>
+                                    <td>Correção detalhada + análise de erros</td>
+                                    <td><span class="tipo-pill tp-rv">Revisão</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">16h00–17h00
+                                    </td>
+                                    <td>TAF — corrida + abdominal + barra</td>
+                                    <td><span class="tipo-pill tp-tf">TAF</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="semana">
+                    <div class="semana-head" onclick="toggleSemana('r3')">
+                        <div class="semana-left">
+                            <div class="semana-icon" style="background:rgba(139,92,246,.1)">🌿</div>
+                            <div>
+                                <div class="semana-titulo">Domingo (descanso ativo)</div>
+                                <div class="semana-sub">TAF + leitura leve</div>
+                            </div>
+                        </div>
+                        <div class="semana-right"><span class="badge badge-med">leve</span><span class="chevron"
+                                id="chev-r3">▼</span></div>
+                    </div>
+                    <div class="semana-body" id="body-r3">
+                        <table class="rotina-table">
+                            <thead>
+                                <tr>
+                                    <th>Período</th>
+                                    <th>Atividade</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">Manhã</td>
+                                    <td>TAF — treino físico completo (obrigatório toda semana)</td>
+                                    <td><span class="tipo-pill tp-tf">TAF</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">Tarde</td>
+                                    <td>Leitura leve: jornal, atualidades, temas de redação</td>
+                                    <td><span class="tipo-pill tp-hm">Humanas</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">Noite</td>
+                                    <td>Descanso total — sem estudo</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JUNHO -->
+            <div id="panel-junho" class="panel">
+                <div class="page-header">
+                    <div class="page-tag">Cronograma</div>
+                    <div class="page-title">Junho 2026</div>
+                    <div class="page-sub">Base de todas as matérias — o mês mais importante do plano</div>
+                </div>
+                <div id="content-junho"></div>
+            </div>
+
+            <!-- JULHO -->
+            <div id="panel-julho" class="panel">
+                <div class="page-header">
+                    <div class="page-tag">Cronograma</div>
+                    <div class="page-title">Julho 2026</div>
+                    <div class="page-sub">Aprofundamento, simulados e correção de pontos fracos</div>
+                </div>
+                <div id="content-julho"></div>
+            </div>
+
+            <!-- AGOSTO -->
+            <div id="panel-agosto" class="panel">
+                <div class="page-header">
+                    <div class="page-tag">Cronograma</div>
+                    <div class="page-title">Agosto 2026</div>
+                    <div class="page-sub">Reta final — revisão, simulados e descanso estratégico</div>
+                </div>
+                <div id="content-agosto"></div>
+            </div>
+
+            <!-- MATEMATICA -->
+            <div id="panel-matematica" class="panel">
+                <div class="page-header">
+                    <div class="page-tag">Matéria</div>
+                    <div class="page-title">Matemática</div>
+                    <div class="page-sub">12 questões na prova · Maior peso individual · Alta prioridade</div>
+                </div>
+                <div id="content-matematica"></div>
+            </div>
+
+            <!-- PORTUGUES -->
+            <div id="panel-portugues" class="panel">
+                <div class="page-header">
+                    <div class="page-tag">Matéria</div>
+                    <div class="page-title">Português</div>
+                    <div class="page-sub">18 questões na prova · Maior bloco único · Alta prioridade</div>
+                </div>
+                <div id="content-portugues"></div>
+            </div>
+
+            <!-- EXATAS -->
+            <div id="panel-exatas" class="panel">
+                <div class="page-header">
+                    <div class="page-tag">Matéria</div>
+                    <div class="page-title">Física · Química · Biologia</div>
+                    <div class="page-sub">6 questões cada · 18 no total · Média prioridade</div>
+                </div>
+                <div id="content-exatas"></div>
+            </div>
+
+            <!-- HUMANAS -->
+            <div id="panel-humanas" class="panel">
+                <div class="page-header">
+                    <div class="page-tag">Matéria — FOCO ESPECIAL</div>
+                    <div class="page-title">História · Geografia · Filosofia · Sociologia</div>
+                    <div class="page-sub">20 questões no total · Sua maior dificuldade — atenção redobrada</div>
+                </div>
+                <div id="content-humanas"></div>
+            </div>
+
+            <!-- REDACAO -->
+            <div id="panel-redacao" class="panel">
+                <div class="page-header">
+                    <div class="page-tag">Habilidade</div>
+                    <div class="page-title">Redação Dissertativa</div>
+                    <div class="page-sub">30 linhas · 1 redação por semana · 11 práticas no total</div>
+                </div>
+                <div class="semana" style="margin-bottom:20px">
+                    <div class="semana-head" onclick="toggleSemana('estr')">
+                        <div class="semana-left">
+                            <div class="semana-icon" style="background:rgba(16,185,129,.1)">📐</div>
+                            <div>
+                                <div class="semana-titulo">Estrutura da redação</div>
+                                <div class="semana-sub">Como montar cada parágrafo</div>
+                            </div>
+                        </div>
+                        <div class="semana-right"><span class="badge badge-alta">essencial</span><span
+                                class="chevron open" id="chev-estr">▼</span></div>
+                    </div>
+                    <div class="semana-body open" id="body-estr">
+                        <div class="dia-row" style="cursor:default">
+                            <div class="dia-data">INTRO</div>
+                            <div class="dia-content">
+                                <div class="dia-topico">Parágrafo 1 — Apresentação e tese (5–6 linhas)</div>
+                                <div class="dia-detalhe">Contextualize o tema com dado, citação ou fato histórico.
+                                    Termine com a tese: sua posição clara sobre o assunto.</div>
+                            </div>
+                        </div>
+                        <div class="dia-row" style="cursor:default">
+                            <div class="dia-data">DESEN. 1</div>
+                            <div class="dia-content">
+                                <div class="dia-topico">Parágrafo 2 — Argumento principal (7–8 linhas)</div>
+                                <div class="dia-detalhe">Apresente o argumento mais forte. Use exemplo concreto: dado
+                                    estatístico, caso real ou referência histórica.</div>
+                            </div>
+                        </div>
+                        <div class="dia-row" style="cursor:default">
+                            <div class="dia-data">DESEN. 2</div>
+                            <div class="dia-content">
+                                <div class="dia-topico">Parágrafo 3 — Argumento de reforço (7–8 linhas)</div>
+                                <div class="dia-detalhe">Segundo argumento que complementa o primeiro. Pode ser de outra
+                                    área (social, econômica, cultural).</div>
+                            </div>
+                        </div>
+                        <div class="dia-row" style="cursor:default">
+                            <div class="dia-data">CONCL.</div>
+                            <div class="dia-content">
+                                <div class="dia-topico">Parágrafo 4 — Proposta de intervenção (5–6 linhas)</div>
+                                <div class="dia-detalhe">Retome a tese e proponha solução concreta: agente + ação +
+                                    finalidade. Ex: "Cabe ao Estado, por meio de políticas de segurança, investir em..."
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dica">
+                            <div class="dica-titulo">🎯 Temas mais prováveis</div>
+                            <p>Segurança pública · Violência urbana · Direitos humanos · Papel da polícia · Tecnologia e
+                                vigilância · Desigualdade social · Saúde pública</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-title">Calendário de práticas — 1 por sábado</div>
+                <div class="red-grid" id="redacoes-grid"></div>
+            </div>
+
+            <!-- TAF -->
+            <div id="panel-taf" class="panel">
+                <div class="page-header">
+                    <div class="page-tag">Teste de Aptidão Física</div>
+                    <div class="page-title">TAF — Todas as etapas eliminatórias</div>
+                    <div class="page-sub">Treinar em paralelo ao estudo — 3x por semana</div>
+                </div>
+                <div class="taf-grid">
+                    <div class="taf-card">
+                        <div class="taf-icon">🏃</div>
+                        <div class="taf-nome">Cooper (12 min)</div>
+                        <div class="taf-min">~2.400m mínimo</div>
+                        <div class="taf-det">Para homens 29–33 anos. Treinar 3x/semana com corrida contínua e
+                            intervalada.</div>
+                    </div>
+                    <div class="taf-card">
+                        <div class="taf-icon">⚡</div>
+                        <div class="taf-nome">50 metros rasos</div>
+                        <div class="taf-min">Velocidade máxima</div>
+                        <div class="taf-det">Arrancadas e técnica de saída. Treinar 2x/semana com tiros de 50m.</div>
+                    </div>
+                    <div class="taf-card">
+                        <div class="taf-icon">💪</div>
+                        <div class="taf-nome">Abdominal (1 min)</div>
+                        <div class="taf-min">~30–35 mínimo</div>
+                        <div class="taf-det">Treinar diariamente com séries progressivas. Aumentar 2 rep/semana.</div>
+                    </div>
+                    <div class="taf-card">
+                        <div class="taf-icon">🔝</div>
+                        <div class="taf-nome">Barra fixa</div>
+                        <div class="taf-min">Conforme edital</div>
+                        <div class="taf-det">Se não consegue ainda: comece com negativas (descida controlada).</div>
+                    </div>
+                </div>
+                <div class="section-title">Plano de treino — 11 semanas</div>
+                <div id="content-taf"></div>
+                <div class="dica" style="margin-top:16px">
+                    <div class="dica-titulo">⚠️ Atenção</div>
+                    <p>Confirme os valores mínimos exigidos no edital oficial quando publicarem o regulamento do TAF. Os
+                        dados acima são referência de editais anteriores da PM SP.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
